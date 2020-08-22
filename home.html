@@ -1,0 +1,26 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Menu</title>
+</head>
+<body>
+<h4 style='color:red'>App Step 2: login</h4>
+<h1>Home</h1>
+<p id="login_blok"></p>
+<button type="button" id="create_login">Kembali ke halaman Login</button>
+<script>
+	var login_blok=sessionStorage.getItem("login_blok");
+	var create_login=document.getElementById('create_login');
+	var login_id=document.getElementById('login_blok');
+
+	login_id.innerHTML="Login blok: "+login_blok;
+	
+	create_login.onclick=function(){
+		sessionStorage.removeItem('login_blok');
+		window.location.href="login.html";
+	}
+	
+</script>
+</body>
+</html> 

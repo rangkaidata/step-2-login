@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<title>Register</title>
+	</head>
+<body>
+<form>
+	<h4 style='color:red'>App Step 2: login</h4>
+	<h1>Register Akun Baru</h1>
+	<ul>
+	<li><h4 id="msg"></h4></li>
+	<li>
+		<label for="user_name">User Name:</label>
+		<input type="text" id="user_name">
+	</li>
+	<li>
+		<label for="user_fullname">Full Name:</label>
+		<input type="text" id="user_fullname">
+	</li>
+	<li>
+		<label for="user_password">Password:</label>
+		<input type="password" id="user_password">
+	</li>
+	<li>
+		<label for="confirm_password">Confirm Password:</label>
+		<input type="password" id="confirm_password">
+	</li>
+	<li>
+		<label for="passcode_image">Passcode:</label>
+		<img src="https:\\datablok.id\v0\passcode\xyzimg.php" id="passcode_image" border=1>
+	</li>
+	<li>	
+		<label for="user_passcode">Retype Passcode:</label>
+		<input type="text" id="user_passcode">
+	</li>
+	<li>
+		<button type="button" id="button_create">Register</button>
+	</li>
+	<li>Sudah punya Akun? <a href="login.html">Log in</a></li>
+	</ul>
+</form>
+	<script src="function.js"></script>
+	<script>
+	// step 1: register
+	// step 1.1:
+	var msg=document.getElementById("msg");
+	var user_name=document.getElementById("user_name");
+	var user_fullname=document.getElementById("user_fullname");
+	var user_password=document.getElementById("user_password");
+	var confirm_password=document.getElementById("confirm_password");
+	var passcode_image=document.getElementById("passcode_image");
+	var user_passcode=document.getElementById("user_passcode");
+	var button_create=document.getElementById("button_create");
+	
+	// step 1.2:
+	user_name.focus();
+	
+	// step 1.3:
+	button_create.onclick=function(){
+		if (button_create.innerHTML == "Reset"){
+			location.replace(location.href);
+		}
+		const obj = {
+			"home_folder":null,
+			"user_name":user_name.value,
+			"user_fullname":user_fullname.value,
+			"user_password":user_password.value,
+			"confirm_password":confirm_password.value,
+			"user_passcode":user_passcode.value
+		};
+
+		// XHR dipindahkan ke function.js menjadi loadXHR
+		loadXHR('https://datablok.id/v0/administrator/create.php',obj,terimaData);
+	}
+	
+	// step 1.4:
+	function terimaData(paket){
+		if (paket.err==0){
+			button_create.innerHTML = "Reset";
+		}
+		msg.innerHTML = "Message: "+paket.msg;
+	}
+	</script>
+</body>
+</html> 
