@@ -62,49 +62,51 @@
 	if (login_blok===null){
 		user_name.focus();
 	}
+	// step 2.3:
 	else{
 		window.location.href="home.html";
 	}	
-	// step 2.3:
+	// step 2.4:
 	button_create.onclick= function(){
+		// step-2.4.1.
 		var obj={
 			"user_name":user_name.value,
 			"user_password":user_password.value
 		};
-		// step-2.3.3.
+		// step-2.4.2.
 		var request = new XMLHttpRequest();
 		var dbParam = JSON.stringify(obj);
-		// step-2.3.4.
+		// step-2.4.3.
 		request.onload = function() {
-			// step-2.3.4.1.
+			// step-2.4.3.1.
 			if (request.readyState===4){
-				// step-2.3.4.1.1.
+				// step-2.4.3.1.1.
 				var paket = JSON.parse(request.responseText);		
-				// step-2.3.4.1.2.
+				// step-2.4.3.1.2.
 				terimaData(paket);
 			} 
-			// step-2.3.4.2.
+			// step-2.4.3.2.
 			else {
 				console.log('Network request failed with response ' + request.status + ': ' + request.statusText)
 			}
 		};
-		// step-2.3.5.
+		// step-2.4.4.
 		request.open('POST', 'https://datablok.id/v0/login/create.php');
 		request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		request.send(dbParam);
 	}
-	// step 2.4:
+	// step 2.5:
 	function terimaData(paket){
-		// step-2.4.1.
+		// step-2.5.1.
 		if (paket.length==0){
 			return messageBar('Server tidak terdapat API');
 		}
-		// step-2.4.2.
+		// step-2.5.2.
 		if (paket.err==0){
 			sessionStorage.setItem("login_blok", paket.data.login_blok);
 			window.location.href="home.html";
 		}
-		// step-2.4.3.
+		// step-2.5.3.
 		else{
 			msg.innerHTML=paket.msg;
 		}
