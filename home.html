@@ -1,26 +1,55 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Menu</title>
-</head>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<meta name="description" content="Software Akuntansi Online">
+		<meta name="keywords" content="HTML, CSS, JavaScript, Accounting, Akuntansi, Tutorial, Online, Software, Aplikasi, Web, Home">
+		<meta name="author" content="Budiono">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Menu</title>
+		<style>
+		body {
+			font-family:arial;
+			font-size:small;
+		}
+		ul {
+		  list-style-type: none;
+		  margin: 0;
+		  padding:0;
+		}
+		li {
+			margin:5px;
+		}
+		label{
+			display:inline-block;
+			width:200px;
+		}
+		form{
+			margin:0 auto;
+			padding:20px;
+			border:1px solid gray;
+			width:500px;
+		}
+		</style>
+	</head>
 <body>
-<h4 style='color:red'>App Step 2: login</h4>
-<h1>Home</h1>
-<p id="login_blok"></p>
-<button type="button" id="create_login">Kembali ke halaman Login</button>
-<script>
-	var login_blok=sessionStorage.getItem("login_blok");
-	var create_login=document.getElementById('create_login');
-	var login_id=document.getElementById('login_blok');
+	<form>
+		<h4 style='color:red'>App Step 2: login</h4>
+		<h1>Home</h1>
+		<p id="login_blok"></p>
+		<button type="button" id="create_login">Kembali ke halaman Login</button>
+	</form>
+	<script>
+		var login_blok=sessionStorage.getItem("login_blok");
+		var create_login=document.getElementById('create_login');
+		var login_id=document.getElementById('login_blok');
 
-	login_id.innerHTML="Login blok: "+login_blok;
-	
-	create_login.onclick=function(){
-		sessionStorage.removeItem('login_blok');
-		window.location.href="login.html";
-	}
-	
-</script>
+		login_id.innerHTML="Nomer Login Anda: <b>"+login_blok+"</b>";
+
+		create_login.onclick=function(){
+			sessionStorage.removeItem('login_blok');
+			window.location.href="login.html";
+		}
+	</script>
 </body>
 </html> 
