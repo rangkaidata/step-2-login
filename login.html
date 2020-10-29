@@ -1,29 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<meta charset="UTF-8">
+		<meta name="description" content="Software Akuntansi Online">
+		<meta name="keywords" content="HTML, CSS, JavaScript, Accounting, Akuntansi, Tutorial, Online, Software, Aplikasi, Web, Login">
+		<meta name="author" content="Budiono">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Login</title>
+		<style>
+		body {
+			font-family:arial;
+			font-size:small;
+		}
+		ul {
+		  list-style-type: none;
+		  margin: 0;
+		  padding:0;
+		}
+		li {
+			margin:5px;
+		}
+		label{
+			display:inline-block;
+			width:150px;
+		}
+		form{
+			margin:0 auto;
+			padding:20px;
+			border:1px solid gray;
+			width:500px;
+		}
+		</style>
 	</head>
 <body>
 <form>
 	<h4 style='color:red'>App Step 2: login</h4>
 	<h1>Login</h1>
 	<ul>
-	<li><h4 id="msg"></h4></li>
-	<li>
-		<label for="user_name">User Name:</label>
-		<input type="text" id="user_name">
-	</li>
-	<li>
-		<label for="user_password">Password:</label>
-		<input type="password" id="user_password">
-	</li>
-	<li><button type="button" id="button_create">Log In</button></li>
-	<li>Belum punya akun? <a href="register.html">Buat Akun Baru</a></li>
-</ul>
+		<li><h4 id="msg"></h4></li>
+		<li>
+			<label for="user_name">User Name:</label>
+			<input type="text" id="user_name">
+		</li>
+		<li>
+			<label for="user_password">Password:</label>
+			<input type="password" id="user_password">
+		</li>
+		<li><button type="button" id="button_create">Log In</button></li>
+		<li>Belum punya akun? <a href="register.html">Buat Akun Baru</a></li>
+	</ul>
 </form>
-<script src="function.js"></script>
 <script>	
 	// step 2: login
 	// step 2.1:
@@ -31,39 +58,56 @@
 	var msg=document.getElementById("msg");
 	var user_name=document.getElementById("user_name");
 	var user_password=document.getElementById("user_password");
-
 	// step 2.2:
 	if (login_blok===null){
 		user_name.focus();
 	}
 	else{
 		window.location.href="home.html";
-	}
-	
+	}	
 	// step 2.3:
 	button_create.onclick= function(){
 		var obj={
 			"user_name":user_name.value,
 			"user_password":user_password.value
 		};
-		// XHR dipindahkan ke function.js menjadi loadXHR
-		loadXHR('https://datablok.id/v0/login/create.php',obj,terimaData);
+		// step-2.3.3.
+		var request = new XMLHttpRequest();
+		var dbParam = JSON.stringify(obj);
+		// step-2.3.4.
+		request.onload = function() {
+			// step-2.3.4.1.
+			if (request.readyState===4){
+				// step-2.3.4.1.1.
+				var paket = JSON.parse(request.responseText);		
+				// step-2.3.4.1.2.
+				terimaData(paket);
+			} 
+			// step-2.3.4.2.
+			else {
+				console.log('Network request failed with response ' + request.status + ': ' + request.statusText)
+			}
+		};
+		// step-2.3.5.
+		request.open('POST', 'https://datablok.id/v0/login/create.php');
+		request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		request.send(dbParam);
 	}
-	
 	// step 2.4:
 	function terimaData(paket){
+		// step-2.4.1.
 		if (paket.length==0){
 			return messageBar('Server tidak terdapat API');
 		}
-		
+		// step-2.4.2.
 		if (paket.err==0){
 			sessionStorage.setItem("login_blok", paket.data.login_blok);
 			window.location.href="home.html";
 		}
-		
+		// step-2.4.3.
 		else{
 			msg.innerHTML=paket.msg;
-	    }
+		}
 	}
 </script>
 </body>
